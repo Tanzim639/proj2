@@ -1,0 +1,8 @@
+Explanation of question 5:
+This code is designed to find the equation of a plane that passes through a given point (a, b, c) and is parallel to another plane defined by its direction numbers (d, e, f).
+Here's a step-by-step explanation:
+The program starts by printing a question prompt to inform the user about the problem it's solving.
+The program then declares and initializes six double variables: a, b, c (representing the coordinates of a point on the plane), and d, e, f (representing the direction numbers of the parallel plane).
+The user is prompted to input the values of these variables.
+The program calculates the constant term in the equation of the plane using the formula: constant = -(a * d) - (b * e) - (c * f).
+Finally, the program prints the equation of the plane in the form dx + ey + fz + constant = 0. The coefficients (d, e, f) are printed as they are, and signs in front of e and f are adjusted based on whether they are positive or negative. The constant term is also printed with its sign adjusted.

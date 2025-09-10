@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Task Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #4a6fc7;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .task-form {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+        }
+        
+        .task-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .task-input:focus {
+            border-color: #4a6fc7;
+        }
+        
+        .add-btn {
+            padding: 12px 20px;
+            background: #4a6fc7;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        .add-btn:hover {
+            background: #3b5aa6;
+        }
+        
+        .task-list {
+            max-height: 350px;
+            overflow-y: auto;
+        }
+        
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+        }
+        
+        .task-item:hover {
+            background: #f9f9f9;
+        }
+        
+        .task-item.completed {
+            background: #f0f9ff;
+        }
+        
+        .task-text {
+            flex: 1;
+            margin-left: 15px;
+            font-size: 16px;
+        }
+        
+        .task-item.completed .task-text {
+            text-decoration: line-through;
+            color: #888;
+        }
+        
+        .task-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .complete-btn, .delete-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        
+        .complete-btn {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .complete-btn:hover {
+            background: #c8e6c9;
+        }
+        
+        .delete-btn {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .delete-btn:hover {
+            background: #ffcdd2;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+        }
+        
+        .empty-state img {
+            width: 100px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+        
+        .stats {
+            padding: 15px 20px;
+            background: #f9f9f9;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                border-radius: 10px;
+            }
+            
+            .task-form {
+                flex-direction: column;
+            }
+            
+            .task-input {
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+            
+            .add-btn {
+                border-radius: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Simple Task Manager</h1>
+            <p>Manage your tasks easily with this tool</p>
+        </div>
+        
+        <div class="task-form">
+            <input type="text" class="task-input" placeholder="Enter a new task...">
+            <button class="add-btn">Add Task</button>
+        </div>
+        
+        <div class="task-list">
+            <div class="task-item">
+                <input type="checkbox" class="task-checkbox">
+                <span class="task-text">Complete web project assignment</span>
+                <div class="task-actions">
+                    <button class="complete-btn">Complete</button>
+                    <button class="delete-btn">Delete</button>
+                </div>
+            </div>
+            
+            <div class="task-item completed">
+                <input type="checkbox" class="task-checkbox" checked>
+                <span class="task-text">Set up XAMPP and MySQL database</span>
+                <div class="task-actions">
+                    <button class="complete-btn">Undo</button>
+                    <button class="delete-btn">Delete</button>
+                </div>
+            </div>
+            
+            <div class="task-item">
+                <input type="checkbox" class="task-checkbox">
+                <span class="task-text">Design the user interface</span>
+                <div class="task-actions">
+                    <button class="complete-btn">Complete</button>
+                    <button class="delete-btn">Delete</button>
+                </div>
+            </div>
+            
+            <div class="empty-state">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItZmlsZSI+PHBhdGggZD0iTTE0IDJINmEyIDIgMCAwIDAtMiAydjE2YTIgMiAwIDAgMCAyIDJoMTJhMiAyIDAgMCAwIDItMlY4eiI+PC9wYXRoPjxwb2x5bGluZSBwb2ludHM9IjE0IDIgMTQgOCAyMCA4Ij48L3BvbHlsaW5lPjwvc3ZnPg==" alt="No tasks">
+                <h3>No tasks yet</h3>
+                <p>Add a new task to get started</p>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <span>Total tasks: <strong>3</strong></span>
+            <span>Completed: <strong>1</strong></span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const taskInput = document.querySelector('.task-input');
+            const addBtn = document.querySelector('.add-btn');
+            const taskList = document.querySelector('.task-list');
+            const emptyState = document.querySelector('.empty-state');
+            const stats = document.querySelectorAll('.stats strong');
+            
+            // Sample tasks data
+            let tasks = [
+                { id: 1, text: 'Complete web project assignment', completed: false },
+                { id: 2, text: 'Set up XAMPP and MySQL database', completed: true },
+                { id: 3, text: 'Design the user interface', completed: false }
+            ];
+            
+            // Render tasks
+            function renderTasks() {
+                taskList.querySelectorAll('.task-item:not(.empty-state)').forEach(item => item.remove());
+                
+                if (tasks.length === 0) {
+                    emptyState.style.display = 'block';
+                } else {
+                    emptyState.style.display = 'none';
+                    tasks.forEach(task => {
+                        const taskItem = document.createElement('div');
+                        taskItem.className = `task-item ${task.completed ? 'completed' : ''}`;
+                        taskItem.innerHTML = `
+                            <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
+                            <span class="task-text">${task.text}</span>
+                            <div class="task-actions">
+                                <button class="complete-btn">${task.completed ? 'Undo' : 'Complete'}</button>
+                                <button class="delete-btn">Delete</button>
+                            </div>
+                        `;
+                        taskList.insertBefore(taskItem, emptyState);
+                    });
+                }
+                
+                updateStats();
+            }
+            
+            // Update statistics
+            function updateStats() {
+                const totalTasks = tasks.length;
+                const completedTasks = tasks.filter(task => task.completed).length;
+                
+                stats[0].textContent = totalTasks;
+                stats[1].textContent = completedTasks;
+            }
+            
+            // Add new task
+            addBtn.addEventListener('click', function() {
+                const taskText = taskInput.value.trim();
+                if (taskText) {
+                    tasks.push({
+                        id: tasks.length + 1,
+                        text: taskText,
+                        completed: false
+                    });
+                    taskInput.value = '';
+                    renderTasks();
+                }
+            });
+            
+            // Allow adding task with Enter key
+            taskInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addBtn.click();
+                }
+            });
+            
+            // Event delegation for task actions
+            taskList.addEventListener('click', function(e) {
+                const taskItem = e.target.closest('.task-item');
+                if (!taskItem) return;
+                
+                const taskId = parseInt(taskItem.dataset.id);
+                
+                if (e.target.classList.contains('delete-btn')) {
+                    tasks = tasks.filter(task => task.id !== taskId);
+                    renderTasks();
+                }
+                
+                if (e.target.classList.contains('complete-btn')) {
+                    tasks = tasks.map(task => {
+                        if (task.id === taskId) {
+                            return { ...task, completed: !task.completed };
+                        }
+                        return task;
+                    });
+                    renderTasks();
+                }
+                
+                if (e.target.classList.contains('task-checkbox')) {
+                    tasks = tasks.map(task => {
+                        if (task.id === taskId) {
+                            return { ...task, completed: e.target.checked };
+                        }
+                        return task;
+                    });
+                    renderTasks();
+                }
+            });
+            
+            // Initial render
+            renderTasks();
+        });
+    </script>
+</body>
+</html>
