@@ -1,0 +1,11 @@
+Explanation of 4:
+This code finds the equation of a plane passing through the intersection of two given planes and a specified point in 3D space.
+The katakati function takes four integers (a, b, c, d) by reference and divides each of them by their greatest common divisor (GCD). This is done to simplify the coefficients of the plane equation.
+In the main function:
+The user is prompted to input coefficients (a1, b1, c1, d1) of the first plane, coefficients (a2, b2, c2, d2) of the second plane, and coordinates (l, m, n) of a point through which the resulting plane passes.
+Two variables (var1 and var2) are calculated using the input coefficients and coordinates.
+The GCD of var1 and var2 is calculated.
+The coefficients (a, b, c, d) of the resulting plane are computed using a linear combination of the coefficients of the input planes, where k = -var1 / var2.
+The katakati function is then called to simplify the coefficients.
+Finally, the equation of the resulting plane is printed.
+The output displays the equation of the plane in the form ax + by + cz + d = 0.
